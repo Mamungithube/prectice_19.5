@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<table class="table">
+    <thead>
+      <tr>
+        <th scope="col">Id</th>
+        <th scope="col">Musician Name</th>
+        <th scope="col">Email</th>
+        <th scope="col">Album Rating</th>
+        <th scope="col">Instrument Type</th>
+        <th scope="col">Album Name</th>
+        <th scope="col">Release Date</th>
+        {% if request.user.is_authenticated%}
+        <th scope="col">Actions</th>
+        {% endif %}
+      </tr>
+    </thead>
+    <tbody>
+      {% for Alb in data %}
+      <tr>
+        <th scope="row">{{Alb.id}}</th>
+        <td><a href="{% url 'edit' Alb.id %}">{{Alb.musician_model.first_Name}}</a></td>
+        <td>{{Alb.musician_model.email}}</td>
+        <td>{{Alb.Rating}}</td>
+        <td>{{Alb.musician_model.Instrument_Type}}</td>
+        <td>{{Alb.Album_Name}}</td>
+        <td>{{Alb.Album_release_date}}</td>
+        {% if request.user.is_authenticated%}
+        <td><a class="btn btn-primary " href="{% url 'edit' Alb.id %}">Edit</a><a class="btn btn-warning" href="{% url 'delete' Alb.id %}">delete</a></td>
+        {% endif %}
+      
+      </tr>
+      
+      {% endfor %}
+    </tbody>
+  </table>
+{% endblock %}
